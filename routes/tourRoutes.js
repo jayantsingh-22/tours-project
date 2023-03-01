@@ -6,7 +6,13 @@ const router = express.Router();
 // router.param('id', tourController.checkID);
 
 router
-  .route('/') 
+  .route('/top-5-cheap')
+  .get(tourController.aliasTopTours, tourController.getAllTours);
+
+router.route('/tours-stats').get(tourController.getTourStats);
+
+router
+  .route('/')
   .get(tourController.getAllTours)
   .post(tourController.createTour);
 
@@ -16,4 +22,4 @@ router
   .patch(tourController.updateTour)
   .delete(tourController.deleteTour);
 
-module.exports = router; 
+module.exports = router;
