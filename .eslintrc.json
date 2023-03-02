@@ -21,6 +21,13 @@
       {
         "noUselessIndex": false
       }
+    ],
+    "node/no-unsupported-features/es-syntax": [
+      "off",
+      {
+        "version": ">=8.0.0",
+        "ignores": []
+      }
     ]
   }
 }

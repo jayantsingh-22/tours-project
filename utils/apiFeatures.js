@@ -5,7 +5,6 @@ class APIFeatures {
   }
 
   filter() {
-    // eslint-disable-next-line node/no-unsupported-features/es-syntax
     const queryObj = { ...this.queryString };
     const excludedFields = ['page', 'sort', 'limit', 'fields'];
     excludedFields.forEach((el) => delete queryObj[el]);
@@ -16,7 +15,6 @@ class APIFeatures {
 
     this.query = this.query.find(JSON.parse(queryStr));
 
-    //let query = Tour.find(JSON.parse(queryStr));
     return this;
   }
 
@@ -27,6 +25,7 @@ class APIFeatures {
     } else {
       this.query = this.query.sort('-createdAt');
     }
+
     return this;
   }
 
@@ -41,8 +40,8 @@ class APIFeatures {
   }
 
   paginate() {
-    const page = this.queryString.page * 1 || 1;
-    const limit = this.queryString.limit * 1 || 1;
+    const page = this.queryString.page * 1;
+    const limit = this.queryString.limit * 1;
     const skip = (page - 1) * limit;
 
     this.query = this.query.skip(skip).limit(limit);

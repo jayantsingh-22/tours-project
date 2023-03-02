@@ -1,4 +1,4 @@
-/* eslint-disable no-undef */
+const express = require('express');
 const Tour = require('./../models/tourModel');
 const APIFeatures = require('./../utils/apiFeatures');
 
@@ -25,7 +25,7 @@ exports.getAllTours = async (req, res) => {
       requestedAt: req.requestTime,
       results: tours.length,
       data: {
-        tours: tours,
+        tours,
       },
     });
   } catch (err) {
@@ -133,6 +133,25 @@ exports.getTourStats = async (req, res) => {
       status: 'success',
       data: {
         stats,
+      },
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err,
+    });
+  }
+};
+
+exports.getMonthlyPlan = async (req, res) => {
+  try {
+    const year = req.params.year * 1;
+    const plan = await Tour.aggregate([]);
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        plan,
       },
     });
   } catch (err) {
