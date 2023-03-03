@@ -12,19 +12,23 @@ const tourSchema = new mongoose.Schema(
       trim: true,
       maxLength: [40, 'Maximum acceptable length exceeded!'],
       minLength: [10, 'Minimum acceptable length not entered!'],
-      // validate: {
-      //   validator: function (name) {
-      //     // Loop through each character in the input string
-      //     for (let i = 0; i < this.name.length; i++) {
-      //       // If the character is not an alphabetical character, return false
-      //       if (!/[a-zA-Z]/.test(this.name.charAt(i))) {
-      //         return false;
-      //       }
-      //     } // If we make it through the entire loop without returning false, the string is alphabetic
-      //     return true;
-      //   },
-      //   message: 'name should only comprise alphabetical characters',
-      // },
+      validate: {
+        validator: function (value) {
+          // Remove whitespace from the beginning and end of the input string
+          value = value.replace(/\s+/g, '');
+          // Loop through each character in the input string
+          for (let i = 0; i < value.length; i++) {
+            // If the character is not an alphabetical character, return false
+            if (!/[a-zA-Z]/.test(value.charAt(i))) {
+              return false;
+            }
+          }
+
+          // If we make it through the entire loop without returning false, the string is alphabetic
+          return true;
+        },
+        message: 'Name must contain only alphabetical characters',
+      },
     },
     slug: String,
     duration: {
