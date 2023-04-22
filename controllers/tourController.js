@@ -45,7 +45,7 @@ exports.getTour = catchAsync(async (req, res, next) => {
       tour, // "tours" is the key and "tourData" is the value
     }, //In ES6, we don't have to specify the key and value if the both have the same name,
   });
-}); 
+});
 
 exports.createTour = catchAsync(async (req, res, next) => {
   const newTour = await Tour.create(req.body);
