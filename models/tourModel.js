@@ -131,6 +131,13 @@ tourSchema.virtual('durationWeeks').get(function () {
   return this.duration / 7;
 });
 
+// Virtual populate
+tourSchema.virtual('reviews', {
+  ref: 'Review',
+  foreignField: 'tour', //name of the field in the other model(Review) where ref to the current model(Tour) is stored
+  localField: '_id', //name of the field in the current model(Tour) where ref to the other model(Review) is stored
+});
+
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 tourSchema.pre('save', function (next) {
   this.slug = slugify(this.name, { lower: true }); //`this` points to the current documents
@@ -154,6 +161,7 @@ tourSchema.pre('save', function (next) {
 // });
 
 // QUERY MIDDLEWARE
+
 tourSchema.pre(/^find/, function (next) {
   this.find({ secretTour: { $ne: true } });
 
