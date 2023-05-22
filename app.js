@@ -25,6 +25,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Set security HTTP headers
 app.use(helmet());
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      scriptSrc: ["'self'", 'https://unpkg.com'],
+      imgSrc: ["'self'", 'https://unpkg.com', 'https://tile.openstreetmap.org'],
+    },
+  })
+);
+
+app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Embedder-Policy', 'require-coep');
+  next();
+});
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
