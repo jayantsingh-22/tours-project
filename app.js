@@ -28,8 +28,12 @@ app.use(helmet());
 app.use(
   helmet.contentSecurityPolicy({
     directives: {
-      scriptSrc: ["'self'", 'https://unpkg.com'],
-      imgSrc: ["'self'", 'https://unpkg.com', 'https://tile.openstreetmap.org'],
+      defaultSrc: ["'self'"],
+      connectSrc: ["'self'", "https://api.mapbox.com", "https://events.mapbox.com"],
+      scriptSrc: ["'self'", "https://api.mapbox.com"],
+      scriptSrcElem: ["'self'", "https://api.mapbox.com"],
+      imgSrc: ["'self'", "https://api.mapbox.com", "data:"],
+      workerSrc: ["'self'", "blob:"],
     },
   })
 );
