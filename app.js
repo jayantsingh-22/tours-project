@@ -34,6 +34,7 @@ app.use(
         "'self'",
         'https://api.mapbox.com',
         'https://events.mapbox.com',
+        'ws://127.0.0.1:57770/',  
       ],
       scriptSrc: ["'self'", 'https://api.mapbox.com'],
       scriptSrcElem: [
