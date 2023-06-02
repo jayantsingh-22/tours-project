@@ -13,7 +13,15 @@ module.exports = class Email {
   newTransport() {
     if (process.env.NODE_ENV === 'production') {
       // Sendgrid
-      return 1;
+      return nodemailer.createTransport({
+        host: 'smtp.elasticemail.com',
+        port: 465,
+        secure: true, // Set to true if you're using port 465 with SSL
+        auth: {
+          user: process.env.ELASTICEMAIL_USERNAME,
+          pass: process.env.ELASTICEMAIL_PASSWORD,
+        },
+      });
     }
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
@@ -42,6 +50,14 @@ module.exports = class Email {
       html,
       text: htmlToText.convert(html),
     };
+
+    if (process.env.NODE_ENV === 'production') {
+      mailOptions.headers = {
+        'X-ElasticEmail-ApiKey': process.env.ELASTICEMAIL_APIKEY,
+        'X-ElasticEmail-Apiusername': process.env.ELASTICEMAIL_USERNAME,
+        'X-ElasticEmail-ApiPassword': process.env.ELASTICEMAIL_PASSWORD,
+      };
+    }
 
     // 3) Create a transport and send email
     await this.newTransport().sendMail(mailOptions);
