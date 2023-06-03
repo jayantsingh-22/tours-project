@@ -31,6 +31,7 @@ app.use(
   helmet.contentSecurityPolicy({
     directives: {
       defaultSrc: ["'self'"],
+      frameSrc: ["'self'", 'https://js.stripe.com/v3/'],
       connectSrc: [
         "'self'",
         'https://api.mapbox.com',
@@ -42,6 +43,7 @@ app.use(
         "'self'",
         'https://api.mapbox.com',
         'https://cdnjs.cloudflare.com',
+        'https://js.stripe.com/v3/',
       ],
       imgSrc: ["'self'", 'https://api.mapbox.com', 'data:'],
       workerSrc: ["'self'", 'blob:'],
