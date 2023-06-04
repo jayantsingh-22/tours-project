@@ -47,7 +47,6 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   const url = `${req.protocol}://${req.get('host')}/me`;
-  console.log(url);
   await new Email(newUser, url).sendWelcome();
 
   createSendToken(newUser, 201, res);
@@ -102,7 +101,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   //2) Verification token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  console.log(decoded);
 
   //3) Check if user still exists
   const currentUser = await User.findById(decoded.id);
