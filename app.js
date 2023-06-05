@@ -33,6 +33,7 @@ app.use(
     directives: {
       defaultSrc: ["'self'"],
       frameSrc: ["'self'", 'https://js.stripe.com/v3/'],
+      // styleSrc: ["'self'", 'https://m.stripe.network'],
       connectSrc: [
         "'self'",
         'https://api.mapbox.com',
